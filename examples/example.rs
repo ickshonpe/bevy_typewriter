@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_type_writer::*;
 
-const SAMPLE_TEXT: &str = "The quick brown fox jumped over the lazy dog";
+const SAMPLE_TEXT: &str = "The quick brown fox jumped over the lazy dog. ";
 
 fn setup(
     mut commands: Commands,
@@ -9,27 +9,28 @@ fn setup(
 ) {
     commands.spawn_bundle(UiCameraBundle::default());
 
-    let text_section = TextSection {
+    let text_sections: Vec<TextSection> = (0..10).map(|_| TextSection {
         value: SAMPLE_TEXT.to_owned(),
         style: TextStyle { 
             font: asset_server.load("FiraMono-Regular.ttf"), 
             font_size: 24.0, 
             color: Color::ANTIQUE_WHITE
         },
-    };
+    })
+    .collect();
     
-    let (sections, colors) = split_text_section(&[text_section]);
+    let (sections, colors) = split_text_section(&text_sections);
     commands.spawn_bundle(
         NodeBundle {
             style: Style {
                 position: Rect {
                     left: Val::Px(100.0),
-                    bottom: Val::Px(100.),
+                    bottom: Val::Px(100.0),
                     ..Default::default()
                 },
                 size: Size {
-                    width: Val::Px(100.0),
-                    height: Val::Px(100.0),
+                    width: Val::Px(200.0),
+                    height: Val::Px(300.0),
                 },
                 ..Default::default()
             },
@@ -41,21 +42,26 @@ fn setup(
             .spawn_bundle(
                 TextBundle {
                     style: Style {
-                        size: Size {
-                            width: Val::Percent(100.0),
-                            height: Val::Percent(100.0),
+                        max_size: Size {
+                            width: Val::Px(200.0),
+                            height: Val::Px(300.0),
                         },
-                        flex_wrap: FlexWrap::Wrap,
                         ..Default::default()
                     },
-                    text: Text { sections, ..Default::default() },
+                    text: Text { 
+                        sections, 
+                        alignment: TextAlignment { 
+                            vertical: VerticalAlign::Top, 
+                            horizontal:  HorizontalAlign::Left,
+                        } 
+                    },
                     ..Default::default()
                 }
             )
             .insert(TypeWriterText {
                 cursor_index: 0,
-                delay: 0.25,
-                timer: 0.25,
+                delay: 0.1,
+                timer: 0.1,
                 cursor_color: Color::RED,
             })
             .insert(TypeWriterTextColors(colors));
