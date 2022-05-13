@@ -1,9 +1,15 @@
 [package]
-name = "bevy_type_writer"
+name = "bevy_typewriter"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT OR Apache-2.0"
+categories = ["game-development", "graphics"]
+repository = "https://github.com/ickshonpe/bevy_typewriter"
+readme = "README.md"
+description = "bevy plugin to output text type writer style"
 
 [dependencies]
+bevy = { version = "0.7.0", features = [] }
+
+[dev-dependencies]
 bevy = "0.7.0"

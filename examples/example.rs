@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_type_writer::*;
+use bevy_typewriter::*;
 
 const SAMPLE_TEXT: &str = "The quick brown fox jumped over the lazy dog. ";
 
@@ -19,7 +19,7 @@ fn setup(
     })
     .collect();
     
-    let (sections, colors) = split_text_section(&text_sections);
+    let (sections, colors) = split_text_sections(&text_sections);
     commands.spawn_bundle(
         NodeBundle {
             style: Style {
@@ -66,10 +66,7 @@ fn setup(
             })
             .insert(TypeWriterTextColors(colors));
     });
-
-
 }
-
 
 fn main() {
     App::new()
