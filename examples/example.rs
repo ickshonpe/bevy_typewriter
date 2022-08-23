@@ -7,9 +7,9 @@ fn setup(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
 ) {
-    commands.spawn_bundle(UiCameraBundle::default());
+    commands.spawn_bundle(Camera2dBundle::default());
 
-    let text_sections: Vec<TextSection> = (0..10).map(|_| TextSection {
+    let text_sections: Vec<TextSection> = (0..4).map(|_| TextSection {
         value: SAMPLE_TEXT.to_owned(),
         style: TextStyle { 
             font: asset_server.load("FiraMono-Regular.ttf"), 
@@ -23,7 +23,7 @@ fn setup(
     commands.spawn_bundle(
         NodeBundle {
             style: Style {
-                position: Rect {
+                position: UiRect {
                     left: Val::Px(100.0),
                     bottom: Val::Px(100.0),
                     ..Default::default()
